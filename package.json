@@ -14,7 +14,12 @@
     "test:regression:dev": "ENV=dev cypress run --spec 'cypress/e2e/regression/**/*.cy.ts'",
     "test:regression:qa": "ENV=qa cypress run --spec 'cypress/e2e/regression/**/*.cy.ts'",
     "test:regression:staging": "ENV=staging cypress run --spec 'cypress/e2e/regression/**/*.cy.ts'",
-    "test:regression:prod": "ENV=prod cypress run --spec 'cypress/e2e/regression/**/*.cy.ts'"
+    "test:regression:prod": "ENV=prod cypress run --spec 'cypress/e2e/regression/**/*.cy.ts'",
+    "test:api": "ENV=dev cypress run --spec 'cypress/e2e/regression/api/**/*.cy.ts'",
+    "test:api:dev": "ENV=dev cypress run --spec 'cypress/e2e/regression/api/**/*.cy.ts'",
+    "test:api:qa": "ENV=qa cypress run --spec 'cypress/e2e/regression/api/**/*.cy.ts'",
+    "test:api:staging": "ENV=staging cypress run --spec 'cypress/e2e/regression/api/**/*.cy.ts'",
+    "test:api:prod": "ENV=prod cypress run --spec 'cypress/e2e/regression/api/**/*.cy.ts'"
   },
   "keywords": [],
   "author": "",
