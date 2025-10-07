@@ -5,8 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:smoke": "cypress run --spec 'cypress/e2e/smoke/**/*.cy.ts'",
-    "test:regression": "cypress run --spec 'cypress/e2e/regression/**/*.cy.ts'"
+    "test:smoke": "ENV=dev cypress run --spec 'cypress/e2e/smoke/**/*.cy.ts'",
+    "test:smoke:dev": "ENV=dev cypress run --spec 'cypress/e2e/smoke/**/*.cy.ts'",
+    "test:smoke:qa": "ENV=qa cypress run --spec 'cypress/e2e/smoke/**/*.cy.ts'",
+    "test:smoke:staging": "ENV=staging cypress run --spec 'cypress/e2e/smoke/**/*.cy.ts'",
+    "test:smoke:prod": "ENV=prod cypress run --spec 'cypress/e2e/smoke/**/*.cy.ts'",
+    "test:regression": "ENV=dev cypress run --spec 'cypress/e2e/regression/**/*.cy.ts'",
+    "test:regression:dev": "ENV=dev cypress run --spec 'cypress/e2e/regression/**/*.cy.ts'",
+    "test:regression:qa": "ENV=qa cypress run --spec 'cypress/e2e/regression/**/*.cy.ts'",
+    "test:regression:staging": "ENV=staging cypress run --spec 'cypress/e2e/regression/**/*.cy.ts'",
+    "test:regression:prod": "ENV=prod cypress run --spec 'cypress/e2e/regression/**/*.cy.ts'"
   },
   "keywords": [],
   "author": "",

@@ -1,6 +1,6 @@
 describe('Regression Test - Example', () => {
   beforeEach(() => {
-    cy.visit('https://example.cypress.io/todo')
+    cy.visit('/todo')
   })
 
   it('should display the todo app correctly', () => {
