@@ -16,3 +16,6 @@
 // Import commands.ts using ES2015 syntax:
 import './commands'
 
+// Import Mochawesome Reporter
+import 'cypress-mochawesome-reporter/register'
+
