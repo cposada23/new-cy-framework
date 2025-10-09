@@ -18,6 +18,9 @@ coverage/
 .env.local
 .env.*.local
 
+# Database credentials
+cypress/config/database.config.ts
+
 # IDE
 .vscode/
 .idea/

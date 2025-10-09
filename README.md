@@ -6,8 +6,9 @@
 - 🌍 **Multi-Environment Configuration** - Dev, QA, Staging, and Production
 - 📊 **Mochawesome Reporting** - Beautiful HTML reports with embedded screenshots
 - 🔧 **API Testing Utilities** - Reusable helper functions for API testing
+- 💾 **Database Testing** - SQL Server integration for data validation
 - 📸 **Screenshot on Failure** - Automatic screenshot capture when tests fail
-- 🎯 **Organized Test Structure** - Smoke, Regression, and API test suites
+- 🎯 **Organized Test Structure** - Smoke, Regression, API, and Database test suites
 - 🛠️ **NPM Scripts** - Easy-to-use commands for different test types and environments
 
 ## 📋 Prerequisites
@@ -43,16 +44,20 @@ cypress/
 │   │   └── failing-test.cy.ts
 │   └── regression/              # Regression tests
 │       ├── example.cy.ts
-│       └── api/                 # API tests
-│           ├── users.cy.ts
-│           └── posts.cy.ts
+│       ├── api/                 # API tests
+│       │   ├── users.cy.ts
+│       │   └── posts.cy.ts
+│       └── database/            # Database tests
+│           └── user-validation.cy.ts
 ├── fixtures/                    # Test data
 │   └── example.json
 ├── support/                     # Support files
 │   ├── commands.ts              # Custom commands
 │   └── e2e.ts                   # Global configuration
 └── utils/                       # Utility functions
-    └── api-helper.ts            # API testing helpers
+    ├── api-helper.ts            # API testing helpers
+    ├── db-helper.ts             # Database testing helpers
+    └── db-tasks.ts              # Database tasks for Node.js
 ```
 
 ## 🎯 Running Tests
@@ -201,6 +206,83 @@ describe('API Tests', () => {
 - `verifyBodyIsArray(response)`
 - `verifyArrayLength(response, expectedLength)`
 - `logResponse(response)`
+
+## 💾 Database Testing
+
+The framework includes SQL Server database testing capabilities to validate data integrity between the frontend and database.
+
+### Setup
+
+1. **Copy the database configuration template:**
+```bash
+cp cypress/config/database.config.example.ts cypress/config/database.config.ts
+```
+
+2. **Update with your database credentials:**
+```typescript
+export const devDbConfig: DbConfig = {
+  server: 'localhost',
+  database: 'TestDB',
+  user: 'sa',
+  password: 'YourPassword123',
+  port: 1433,
+  options: {
+    encrypt: false,
+    trustServerCertificate: true,
+  },
+};
+```
+
+### Example Usage
+
+```typescript
+import { DbHelper } from '../../utils/db-helper';
+
+describe('Database Tests', () => {
+  before(() => {
+    DbHelper.setConfig({
+      server: 'localhost',
+      database: 'TestDB',
+      user: 'sa',
+      password: 'password',
+      port: 1433,
+      options: { encrypt: false, trustServerCertificate: true }
+    });
+  });
+
+  it('should verify user data in database', () => {
+    DbHelper.query('SELECT * FROM Users WHERE id = 1').then((result) => {
+      expect(result.success).to.be.true;
+      expect(result.data[0].email).to.eq('user@example.com');
+    });
+  });
+
+  it('should validate frontend against database', () => {
+    DbHelper.query('SELECT * FROM Users WHERE id = 1').then((result) => {
+      const dbUser = result.data[0];
+      
+      cy.visit('/users/1');
+      cy.get('[data-test="user-name"]').should('contain', dbUser.name);
+      cy.get('[data-test="user-email"]').should('contain', dbUser.email);
+    });
+  });
+});
+```
+
+### Available Database Helper Methods
+
+**Query Methods:**
+- `DbHelper.query(sqlQuery)` - Execute SQL query
+- `DbHelper.executeStoredProcedure(name, parameters)` - Execute stored procedure
+
+**Verification Methods:**
+- `DbHelper.verifyRecordExists(table, whereClause)` - Verify record exists
+- `DbHelper.verifyRecordNotExists(table, whereClause)` - Verify record doesn't exist
+- `DbHelper.verifyFieldValue(table, field, expectedValue, whereClause)` - Verify field value
+- `DbHelper.getRecordCount(table, whereClause)` - Get count of records
+- `DbHelper.deleteRecords(table, whereClause)` - Delete test data (use with caution!)
+
+📖 **For detailed database testing documentation, see:** [cypress/utils/DATABASE_TESTING.md](cypress/utils/DATABASE_TESTING.md)
 
 ## 🎨 Writing Tests
 

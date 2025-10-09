@@ -1,4 +1,5 @@
 import { defineConfig } from "cypress";
+import { registerDatabaseTasks } from "./cypress/utils/db-tasks";
 
 // Get environment from ENV variable, default to 'dev'
 const environment = process.env.ENV || 'dev';
@@ -27,6 +28,7 @@ export default defineConfig({
     ...envConfig,
     setupNodeEvents(on, config) {
       require('cypress-mochawesome-reporter/plugin')(on);
+      registerDatabaseTasks(on);
       return config;
     },
   },
