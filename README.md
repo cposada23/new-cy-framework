@@ -114,6 +114,33 @@ npm run test:api:prod
 npm run test:regression
 ```
 
+### Windows Users
+
+If you're on Windows, use the `:win` suffix versions of the scripts:
+
+```bash
+# Smoke tests
+npm run test:smoke:win
+npm run test:smoke:dev:win
+npm run test:smoke:qa:win
+npm run test:smoke:staging:win
+npm run test:smoke:prod:win
+
+# Regression tests
+npm run test:regression:win
+npm run test:regression:dev:win
+npm run test:regression:qa:win
+npm run test:regression:staging:win
+npm run test:regression:prod:win
+
+# API tests
+npm run test:api:win
+npm run test:api:dev:win
+npm run test:api:qa:win
+npm run test:api:staging:win
+npm run test:api:prod:win
+```
+
 ## 🌍 Environment Configuration
 
 Environment configurations are stored in `cypress/config/` directory. Each environment has its own configuration file:
