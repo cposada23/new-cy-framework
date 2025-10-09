@@ -234,6 +234,8 @@ describe('API Tests', () => {
 - `verifyArrayLength(response, expectedLength)`
 - `logResponse(response)`
 
+📖 **For detailed API testing documentation, see:** [cypress/utils/API_TESTING.md](cypress/utils/API_TESTING.md)
+
 ## 💾 Database Testing
 
 The framework includes SQL Server database testing capabilities to validate data integrity between the frontend and database.
